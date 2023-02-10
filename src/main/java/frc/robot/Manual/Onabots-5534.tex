@@ -1,0 +1,255 @@
+\documentclass[letterpaper,10pt]{memoir}
+
+% 	\include{include/packages}
+
+	\newcommand{\filelister}[1]{%
+		\lstinputlisting[language=Java, basicstyle=\footnotesize, numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, xleftmargin=12pt]{../#1}
+	}
+	
+	% \tiny 	sample text
+	% \scriptsize 	sample text
+	% \footnotesize 	sample text
+	% \small 	sample text
+	% \normalsize 	sample text
+	
+\usepackage{amsmath,amsfonts,amssymb}
+
+\usepackage{booktabs}
+
+\usepackage{enumitem}
+
+\usepackage[
+	top=1in,
+	inner=1in,
+	outer=1in,
+	bottom=1in,
+	headsep=.35in,
+	marginparwidth=1.25in,
+	marginparsep=0.375in,
+	]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[LE,RO]{\thepart \chaptermark\ page \thepage}
+% \fancyhead[RE,LO]{\sectionmark \thepage}
+% \fancyfoot[C]{\chaptername}
+
+% 	\fancyhead[L]{**Left Header for all pages**}
+% 	\fancyhead[R]{**Right Header for all pages**}
+
+	\usepackage{graphicx}
+	
+	\usepackage{listings}
+	\lstset{%
+		basicstyle=\small,
+		tabsize=3,
+	}
+
+	\usepackage{siunitx}
+
+
+%%
+%%	DOCUMENT
+%%
+\begin{document}
+
+% \tableofcontents
+
+% \include{chapter/configure}
+
+% \chapter{Calendar}
+% 
+% The schedule for robotics season is all-year. However, certain task have expected dates due to knowledge of the competition, tasks, etc.
+% 
+% Include references to other documents. Preferably hyper-links.
+
+
+
+
+% \chapter{Components}
+% 
+% \begin{itemize}
+% \item Motor Controller
+% \item Encoder
+% \item Range Finder
+% \item Camera
+% \item Power Distribution Panel
+% \item RoboRIO
+% \item Pneumatics Control Module
+% \item Voltage Regulator Module
+% \end{itemize}
+
+
+%%
+%% ROBORIO
+%%
+% \newpage\section*{RoboRIO}
+% 
+% Some information about the RoboRIO.
+% 
+% \includegraphics[width=\textwidth]{images/ni_roborio}
+% 
+% Include information about the various ports, their naming.
+% 
+% INPUT Power for RoboRIO. Do not use screws facing top, these hold the black plastic to the RoboRIO. Screws to tighten wires are found on the left side of the black plastic.
+% 
+% Another picture showing the labelled parts of the roborio would be good.
+
+
+%%
+%%	MOTOR CONTROLLERS
+%%
+% \newpage\section*{Motor Controllers}
+% 
+% \includegraphics[width=.25\textwidth]{images/spark}
+% 
+% 
+% \subsection*{Notes}
+% \begin{itemize}
+% \item Different types of motor controllers. Onabots use Sparks due to low price. Have not met any limitations.
+% 
+% \item A motor controller can control more than one motor but need a PWM split cable.
+% 
+% \item Talk about PWM, as Pulse Width Modulated. Varies the amount of time that a voltage is applied to the motor.
+% 
+% \item Range of motor controller values: \SIrange{-1}{1}{} with \num{0} denoting no power.
+% 
+% \item Actually good to set motor speed from an encoder instead of motor power. Speed changes with friction, frame resistance, and battery voltage.
+% 
+% \item Wiring requirements, what size gauge is needed?
+% 
+% \item Braking vs Coast mode (has not been used)
+% 
+% \item 
+% \end{itemize}
+% 
+% \subsection*{Java}
+% \lstset{language=Java}
+% \begin{lstlisting}[language=Java]
+% 	// DEFINE SPARK
+% 	public static Spark DriveMotorRF = new Spark( Ports.PWM_DriveMotorRF );
+% 
+% 	// SET POWER
+% 	DriveMotorRF.set( 0.50 );
+% \end{lstlisting}
+% 
+
+
+%%
+%%	RADIO
+%%
+% \newpage\section*{Radio}
+
+
+
+
+
+%%
+%%	ENCODERS
+%%
+% \newpage\section*{Encoders}
+% 
+% Encoders should be used anywhere you need to control motor speed.
+
+
+
+
+% At the beginning of each of these files include the purpose and constraints for code that must exist there.
+% 
+% Include a program flow for each mode.
+
+%%
+%%
+%%
+
+% \include{chapter/eclipse}
+
+
+%%
+%%	ROBOT CODE
+%%
+\newpage\chapter{Robot Code}
+
+%%
+%%
+%%
+	\newpage\section*{Robot.java}
+	\filelister{Robot.java}
+
+	\newpage\section*{Onabot.java}
+	\filelister{Mode/Onabot.java}
+
+	\newpage\section*{Autonomous.java}
+	\filelister{Mode/Autonomous.java}
+
+% 	\newpage\section*{Disabled.java}
+% 	\filelister{Mode/Disabled.java}
+
+	\newpage\section*{Teleop.java}
+	\filelister{Mode/Teleop.java}
+
+%%
+%%
+%%
+	\newpage\section*{Autopilot.java}
+	
+	The Autopilot methods are used in Autonomous mode to set the chassis speed variable found in this class. Values are sent to motor controllers in Autonomous.Periofic().
+	
+	\filelister{Hardware/Autopilot.java}
+
+	\newpage\section*{Driver.java}
+	\filelister{Hardware/Driver.java}
+
+	\newpage\section*{Elevator.java}
+	\filelister{Hardware/Elevator.java}
+
+	\newpage\section*{ElevArm.java}
+	\filelister{Hardware/ElevArm.java}
+
+	\newpage\section*{ElevClaw.java}
+	\filelister{Hardware/ElevClaw.java}
+
+	\newpage\section*{ElevLift.java}
+	\filelister{Hardware/ElevWrist.java}
+
+	\newpage\section*{ElevWrist.java}
+	\filelister{Hardware/ElevWrist.java}
+
+	\newpage\section*{EncTalonFX.java}
+	\filelister{Hardware/EncTalonFX.java}
+
+	\newpage\section*{Module.java}
+	\filelister{Hardware/Module.java}
+
+	\newpage\section*{Navigation.java}
+	\filelister{Hardware/Navigation.java}
+
+	\newpage\section*{Settings.java}
+	\filelister{Hardware/Settings.java}
+
+	\newpage\section*{Stage.java}
+	\filelister{Hardware/Stage.java}
+
+	\newpage\section*{Swerve.java}
+	\filelister{Hardware/Swerve.java}
+
+	\newpage\section*{Track.java}
+	\filelister{Hardware/Track.java}
+
+	
+	\newpage\section*{Default.java (Driver)}
+	\filelister{Driver/Default.java}
+
+
+
+% 
+% 
+% \newpage\chapter{Java Tutorial}
+% 
+
+
+
+\end{document}
+

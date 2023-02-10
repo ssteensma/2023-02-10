@@ -1,0 +1,195 @@
+\documentclass[letterpaper,10pt]{memoir}
+
+	\include{include/packages}
+
+	\newcommand{\filelister}[1]{%
+		\lstinputlisting[language=Java, basicstyle=\footnotesize, numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, xleftmargin=12pt]{../src/org/usfirst/frc/team5534/robot/#1}
+	}
+	
+	% \tiny 	sample text
+	% \scriptsize 	sample text
+	% \footnotesize 	sample text
+	% \small 	sample text
+	% \normalsize 	sample text
+	
+% 	\include{commands}
+
+
+%%
+%%	DOCUMENT
+%%
+\begin{document}
+
+\tableofcontents
+
+\include{chapter/configure}
+
+\chapter{Calendar}
+
+The schedule for robotics season is all-year. However, certain task have expected dates due to knowledge of the competition, tasks, etc.
+
+Include references to other documents. Preferably hyper-links.
+
+
+
+
+\chapter{Components}
+
+\begin{itemize}
+\item Motor Controller
+\item Encoder
+\item Range Finder
+\item Camera
+\item Power Distribution Panel
+\item RoboRIO
+\item Pneumatics Control Module
+\item Voltage Regulator Module
+\end{itemize}
+
+
+%%
+%% ROBORIO
+%%
+\newpage\section*{RoboRIO}
+
+Some information about the RoboRIO.
+
+\includegraphics[width=\textwidth]{images/ni_roborio}
+
+Include information about the various ports, their naming.
+
+INPUT Power for RoboRIO. Do not use screws facing top, these hold the black plastic to the RoboRIO. Screws to tighten wires are found on the left side of the black plastic.
+
+Another picture showing the labelled parts of the roborio would be good.
+
+
+%%
+%%	MOTOR CONTROLLERS
+%%
+\newpage\section*{Motor Controllers}
+
+\includegraphics[width=.25\textwidth]{images/spark}
+
+Different types of motor controllers. List the different kinds as well as advantages and disadvantages of each. Include links to AndyMark with prices and descriptions.
+
+A motor controller can control more than one motor but need a PWM split cable.
+
+Talk about PWM, as Pulse Width Modulated. Varies the amount of time that a voltage is applied to the motor.
+
+Range of motor controller values: \num{-1} to \num{1} with \num{0} indicating no motion.
+
+Actually good to set motor speed from an encoder instead of motor power. Speed changes with friction, internal resistance, and battery voltage.
+
+Wiring requirements, what size gauge is needed?
+
+Braking vs Coast mode (has not been used)
+
+\subsection*{Set Power}
+\begin[language=Java]{listing}
+
+\end{listing}
+
+
+
+
+
+%%
+%%	RADIO
+%%
+\newpage\section*{Radio}
+
+
+
+
+
+%%
+%%	ENCODERS
+%%
+\newpage\section*{Encoders}
+
+Encoders should be used anywhere you need to control motor speed.
+
+
+
+
+At the beginning of each of these files include the purpose and constraints for code that must exist there.
+
+Include a program flow for each mode.
+
+%%
+%%
+%%
+
+\include{chapter/eclipse}
+
+
+%%
+%%	ROBOT CODE
+%%
+\newpage\chapter{Robot Code}
+
+%%
+%%
+%%
+\newpage\section*{Autonomous.java}
+\filelister{Autonomous.java}
+
+\newpage\section*{Autopilot.java}
+\filelister{Autopilot.java}
+
+\newpage\section*{Button.java}
+\filelister{Button.java}
+
+\newpage\section*{Chooser.java}
+\filelister{Chooser.java}
+
+\newpage\section*{Climber.java}
+\filelister{Climber.java}
+
+\newpage\section*{Dashboard.java}
+\filelister{Dashboard.java}
+
+\newpage\section*{Drivetrain.java}
+\filelister{Drivetrain.java}
+
+\newpage\section*{GearCollector.java}
+\filelister{GearCollector.java}
+
+\newpage\section*{Monitor.java}
+\filelister{Monitor.java}
+
+\newpage\section*{Navigation.java}
+\filelister{Navigation.java}
+
+\newpage\section*{Pilot.java}
+\filelister{Pilot.java}
+
+\newpage\section*{Ports.java}
+\filelister{Ports.java}
+
+\newpage\section*{Preferences.java}
+\filelister{Preferences.java}
+
+\newpage\section*{Robot.java}
+\filelister{Robot.java}
+
+\newpage\section*{Station.java}
+\filelister{Station.java}
+
+\newpage\section*{Teleop.java}
+\filelister{Teleop.java}
+
+\newpage\section*{Vision.java}
+\filelister{Vision.java}
+
+
+
+
+
+\newpage\chapter{Java Tutorial}
+
+
+
+
+\end{document}
+

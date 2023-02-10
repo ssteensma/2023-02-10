@@ -1,0 +1,32 @@
+\chapter{Eclipse}
+
+
+\section{Installation}
+
+
+
+\section{Configuration}
+
+% Plugins
+
+
+\section{Creating a Project}
+
+% Example project
+
+
+\chapter{Eclipse}
+
+
+Steps to follow. Include pictures and possibly links to video.
+
+\begin{itemize}
+	\item Download and Install Java 8 from Oracle web site: \url{}
+	\item Download and Install Ecilpse for following site: \url{}
+	\item Install WPI plugin
+	\item Configure Eclipse
+	\item Firmware in roboRio
+	\item Configure access points
+	\item Update firmware (see yellow paper, Not IS - that is for Israeli teams)
+	\item Vision tracking set-up with RaspberryPI
+\end{itemize}

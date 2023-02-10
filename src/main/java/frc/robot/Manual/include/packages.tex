@@ -1,0 +1,125 @@
+\usepackage{amsmath,amsfonts,amssymb}
+
+\usepackage{booktabs}
+
+\usepackage{enumitem}
+
+\usepackage[
+	top=1in,
+	inner=1in,
+	outer=2.5in,
+	bottom=1in,
+	headsep=.35in,
+	marginparwidth=1.25in,
+	marginparsep=0.375in,
+	]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[LE,RO]{\thepart \chaptermark\ page \thepage}
+% \fancyhead[RE,LO]{\sectionmark \thepage}
+% \fancyfoot[C]{\chaptername}
+
+% 	\fancyhead[L]{**Left Header for all pages**}
+% 	\fancyhead[R]{**Right Header for all pages**}
+
+
+\usepackage{fourier-orns}
+\renewcommand\headrule{{\color[rgb]{.75,.75,.75}\hrulefill
+\raisebox{-2.1pt}[8pt][8pt]{\quad\decofourleft\decotwo\decofourright\quad}\hrulefill}}
+
+% \renewcommand\headrule{
+% \pgfornament[color=black!20,height=5mm]{88}}
+
+
+
+\usepackage{graphicx}
+
+\usepackage{lipsum}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+	
+
+\usepackage{listings}
+\lstset{%
+	basicstyle=\small,
+	tabsize=3,
+}
+
+\usepackage{marginnote}
+
+\usepackage{multicol}
+\raggedcolumns
+
+% \usepackage[percent]{overpic}
+
+%%	TESTING
+% \usepackage{pgfornament}
+
+\usepackage{pstricks}
+
+\usepackage{qrcode}
+
+\usepackage{siunitx}
+
+\usepackage[absolute]{textpos}
+\textblockorigin{0in}{0in}
+
+
+%%	Documentation encourages this package to be loaded last since
+%%	it redefines many LaTeX commands. It is not clear how this package
+%%	interacts with those above.
+% \usepackage[hidelinks]{hyperref}
+
+\usepackage{fourier} % or what ever
+\usepackage[scaled=.92]{helvet}%. Sans serif - Helvetica
+\usepackage{color,calc}
+\newsavebox{\ChpNumBox}
+\definecolor{ChapBlue}{rgb}{0.75,0.85,0.75}
+\makeatletter
+\newcommand*{\thickhrulefill}{%
+\leavevmode\leaders\hrule height 1\p@ \hfill \kern \z@}
+
+\newcommand*\BuildChpNum[2]{%
+\begin{tabular}[t]{@{}c@{}}
+\makebox[0pt][c]{#1\strut} \\[.5ex]
+\colorbox{ChapBlue}{%
+\rule[-10em]{0pt}{0pt}%
+\rule{3ex}{0pt}\color{black}#2\strut
+\rule{1ex}{0pt}}%
+\end{tabular}}
+
+\makechapterstyle{BlueBox}{%
+\renewcommand{\chapnamefont}{\large\scshape}
+\renewcommand{\chapnumfont}{\Huge\bfseries}
+\renewcommand{\chaptitlefont}{\raggedright\Huge\bfseries}
+\setlength{\beforechapskip}{20pt}
+\setlength{\midchapskip}{26pt}
+\setlength{\afterchapskip}{40pt}
+\renewcommand{\printchaptername}{}
+\renewcommand{\chapternamenum}{}
+\renewcommand{\printchapternum}{%
+\sbox{\ChpNumBox}{%
+\BuildChpNum{\chapnamefont\@chapapp}%
+{\chapnumfont\thechapter}}}
+\renewcommand{\printchapternonum}{%
+\sbox{\ChpNumBox}{%
+\BuildChpNum{\chapnamefont\vphantom{\@chapapp}}%
+{\chapnumfont\hphantom{\thechapter}}}}
+\renewcommand{\afterchapternum}{}
+\renewcommand{\printchaptertitle}[1]{%
+\usebox{\ChpNumBox}\hfill
+\parbox[t]{\hsize-\wd\ChpNumBox-2em}{%
+\vspace{\midchapskip}%
+% \thickhrulefill\par
+\headrule\\[1mm]\par
+\chaptitlefont ##1\par}}%
+}
+\chapterstyle{BlueBox}
