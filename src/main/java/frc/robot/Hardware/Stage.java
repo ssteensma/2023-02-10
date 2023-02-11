@@ -10,8 +10,8 @@ public class Stage {
 	
 	public static int      Number;
 	public static boolean  ReadyToAdvance;	
-	public static double[] StageDistance = new double[10];
-	public static double[] StageTime     = new double[10];
+	public static double[] StageDistance = new double[50];
+	public static double[] StageTime     = new double[50];
 
 	public static double   NegTilt = 0;
 	public static double   PosTilt = 0;
@@ -52,6 +52,7 @@ public class Stage {
 	public static void Last () {
 		AutonFinalTime = System.currentTimeMillis();
 		ReadyToAdvance = false;
+		Number = 19;
 
 		Autopilot.Stop();
 	}
@@ -59,7 +60,7 @@ public class Stage {
 	public static void Fail () {
 		AutonFinalTime = System.currentTimeMillis();
 		ReadyToAdvance = false;
-		Number         = 100;
+		Number         = 20;
 	}
 
 //

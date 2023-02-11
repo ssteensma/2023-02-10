@@ -5,8 +5,8 @@ public class Track {
     public static void Track_00 () {
         switch ( Stage.Number ) {
             case 0:
-                Autopilot.Stop();
-                Stage.WaitForDuration( 2.00 );
+                Autopilot.DriveNorth( 0.12 );
+                Stage.WaitForDistance( 200 );
                 break;
 
             default:

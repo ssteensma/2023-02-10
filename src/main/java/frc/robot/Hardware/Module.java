@@ -17,7 +17,7 @@ public class Module {
     PIDController SteerPID;
     double        SpeedPlus    = 0;
     double        LastPosition = 0;
-    boolean       still_turning_flag = true;
+    boolean       still_turning_flag = false;
 
     public Module ( String ModuleName, int ModuleNumber ) {
 
@@ -71,6 +71,9 @@ public class Module {
             double turnMag = Math.abs   ( minTurn );
             double turnDir = Math.signum( minTurn );
 
+            SmartDashboard.putNumber( ModuleName + " MinTurn", minTurn );
+            SmartDashboard.putNumber( ModuleName + " TurnMag", turnMag );
+
         // MINIMIZE WHEEL SWIVEL: +120 becomes -60
         if ( turnMag > 90 ) {
             turnMag  = 180 - turnMag; // Turn smaller angle
@@ -81,8 +84,8 @@ public class Module {
         // DETERMINE POWER USING PSEUDO PID CONTROLLER
         double SteerRatio = 0;
         if      ( turnMag > 20 ) { SteerRatio = 0.20; }
-        else if ( turnMag > 10 ) { SteerRatio = 0.08; } 
-        else if ( turnMag >  1 ) { SteerRatio = 0.07; } 
+        else if ( turnMag > 10 ) { SteerRatio = 0.15; }
+        else if ( turnMag >  1 ) { SteerRatio = 0.08; }
         else                     { SteerRatio = 0.00; }
 
         // If any the heading difference of any wheel is more than one degree and the
@@ -93,8 +96,10 @@ public class Module {
         else if ( ! is_moving ) { SpeedPlus += 0.001; }
         else                    {                     }
 
+SmartDashboard.putNumber( ModuleName + " SpeedPlus", SpeedPlus );
+
         // SET TURNING FLAG, CHECKED BY DRIVETRAIN
-        still_turning_flag = turnMag >= 5 ? true : false;
+        // still_turning_flag = turnMag >= 5 ? true : false;
 
         // RESET LAST POSITION TO SEE IF MOVEMENT OCCURED
         LastPosition = CurrentPosition;

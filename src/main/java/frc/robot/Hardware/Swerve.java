@@ -5,7 +5,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swerve {
 
@@ -54,9 +53,9 @@ public class Swerve {
     }
 
     public static void Display () {
-        SmartDashboard.putNumber("Robot-vx", RobotSpeed.vxMetersPerSecond     );
-        SmartDashboard.putNumber("Robot-vy", RobotSpeed.vyMetersPerSecond     );
-        SmartDashboard.putNumber("Robot-vt", RobotSpeed.omegaRadiansPerSecond );
+        // SmartDashboard.putNumber("Robot-vx", RobotSpeed.vxMetersPerSecond     );
+        // SmartDashboard.putNumber("Robot-vy", RobotSpeed.vyMetersPerSecond     );
+        // SmartDashboard.putNumber("Robot-vt", RobotSpeed.omegaRadiansPerSecond );
 
         FL_module.Display();
         FR_module.Display();

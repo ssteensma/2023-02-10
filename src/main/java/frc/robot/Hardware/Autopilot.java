@@ -94,14 +94,14 @@ public class Autopilot {
 		double turnDir = Math.signum( minTurn );
 
         // MINIMIZE WHEEL SWIVEL: +120 becomes -60
-        if ( turnMag > 0 ) {
+        if ( turnMag > 90 ) {
             turnMag  = 180 - turnMag; // Turn smaller angle
             turnDir *= -1;            // and reverse swivel
         }
 
         // DETERMINE POWER USING PSEUDO PID CONTROLLER
-        if      ( turnMag > 20 ) { vt = 0.20; }
-        else if ( turnMag > 10 ) { vt = 0.10; } 
+        if      ( turnMag > 20 ) { vt = 0.15; }
+        else if ( turnMag > 10 ) { vt = 0.08; } 
         else if ( turnMag >  1 ) { vt = 0.08; } 
         else                     { vt = 0.00; }
 
