@@ -9,7 +9,7 @@ public class Settings {
 
     // MAXIMUM MODULE SPEEDS
     public static double 
-        MAX_DRIVE_RATIO = 0.80;
+        MAX_DRIVE_RATIO = 0.20;
 
     // MODULE ASSIGNMENTS
     public static int

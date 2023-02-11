@@ -23,9 +23,6 @@ public class Elevator {
         ElevWrist  .Display();
     }
 
-//
-//
-//
     public static void Reset () {
         ElevArm    .Reset();
         ElevClaw   .Reset();

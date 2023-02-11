@@ -1,7 +1,5 @@
 package frc.robot.Driver;
 
-// import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.Hardware.Autopilot;
 import frc.robot.Hardware.Swerve;
 import frc.robot.Mode.Teleop;
 
@@ -9,32 +7,22 @@ public class Default {
  
     public static void Periodic () {
 
-        Autopilot.vx = 0;
-        Autopilot.vy = 0;
-        Autopilot.vt = 0;
-
         // GET VALUES
-        // Joystick DriveStick = Teleop.DriveStick;
-        double   Xratio     = Teleop.Xratio;
-        double   Yratio     = Teleop.Yratio;
-        double   Tratio     = Teleop.Tratio;
+        double Xratio = Teleop.Xratio;
+        double Yratio = Teleop.Yratio;
+        double Tratio = Teleop.Tratio;
 
-        if ( Math.abs( Xratio ) < 0.20 ) { Xratio = 0; }
-        if ( Math.abs( Yratio ) < 0.20 ) { Yratio = 0; }
+        // JOYSTICK COMPONENTS
+        double Xmag = Math.abs( Xratio ); double Xsig = Math.signum( Xratio );
+        double Ymag = Math.abs( Yratio ); double Ysig = Math.signum( Yratio );
+        double Tmag = Math.abs( Tratio ); double Tsig = Math.signum( Tratio );
 
-        // SIMPLE JOYSTICK DEADBAND
-        double Tmag = Math.abs   ( Tratio );
-        double Tsig = Math.signum( Tratio );
-
-            // SCALE TURNING SPEED
-            if ( Tmag < 0.20 ) {
-                Tmag = 0;
-            }
-            else {
-                Tmag = Math.pow( Tmag-0.20, 2 ) / 2;
-            }
-
+        // SCALE SPEEDS: e.g., 0.20 is a 20% dead zone
+        if ( Xmag < 0.10 ) { Xmag = 0; } else { Xmag = Math.pow( Xmag-0.10, 2 ) / 2; }
+        if ( Ymag < 0.10 ) { Ymag = 0; } else { Ymag = Math.pow( Ymag-0.10, 2 ) / 2; }
+        if ( Tmag < 0.20 ) { Tmag = 0; } else { Tmag = Math.pow( Tmag-0.20, 2 ) / 2; }
+        
         // SEND SPEEDS TO SWERVE CLASS
-        Swerve.UpdateRobotRelative( Xratio, Yratio, Tmag*Tsig );    }
-    
+        Swerve.UpdateRobotRelative( Xmag*Xsig, Ymag*Ysig, Tmag*Tsig );
+    }    
 }

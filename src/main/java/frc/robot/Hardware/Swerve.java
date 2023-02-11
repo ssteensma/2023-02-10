@@ -31,10 +31,6 @@ public class Swerve {
     public static SwerveDriveKinematics
         Kinematics;
 
-    // ODOMETRY OBJECT
-    // public static SwerveDriveOdometry
-    //     Odometry;
-
     // INITIALIZE
     public static void Initialize () {
 
@@ -83,10 +79,10 @@ public class Swerve {
 
         // WAIT FOR WHEEL TO ADJUST TO HEADING
         boolean ok_to_drive = true;
-        if ( FL_module.turning_flag ) { ok_to_drive = false; }
-        if ( FR_module.turning_flag ) { ok_to_drive = false; }
-        if ( RL_module.turning_flag ) { ok_to_drive = false; }
-        if ( RR_module.turning_flag ) { ok_to_drive = false; }
+        if ( FL_module.still_turning_flag ) { ok_to_drive = false; }
+        if ( FR_module.still_turning_flag ) { ok_to_drive = false; }
+        if ( RL_module.still_turning_flag ) { ok_to_drive = false; }
+        if ( RR_module.still_turning_flag ) { ok_to_drive = false; }
 
         // ALIGN WHEELS BEFORE TRANSLATION
         if ( ! ok_to_drive ) {

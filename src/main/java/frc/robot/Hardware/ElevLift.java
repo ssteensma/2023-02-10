@@ -1,22 +1,41 @@
 package frc.robot.Hardware;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevLift {
 
-    public static double target_position;
+    public static double    last_position   = 0;
+    public static double    target_position = 0;
+    public static VictorSPX liftMotor;
+    public static double    voltage = 0;
 
-//
-//
-//
     public static void Initialize () {
-
+        liftMotor = new VictorSPX( 20 );
     }
 
     public static void Periodic () {
-        // Some sort of controller to find the position
-        // difference and set the motor ratio. Might need
-        // a PID controller to hold position.
+
+        double current_position = 0;
+
+        // CALCULATE DISPLACEMENT AND PSEUDO VELOCITY
+        double displacement = target_position  - current_position;
+        double velocity     = current_position - last_position;
+
+        // COORDINATE SYSTEM: + is up; - is down
+        double disMag = Math.abs( displacement ); double disSig = Math.signum( displacement );
+        double velMag = Math.abs( velocity     ); double velSig = Math.signum( velocity     );
+
+        // TOLERANCES
+        double disTolerance = 5;
+        double velTolerance = 5;
+
+        // SITUATIONS
+        voltage += displacement / 10;
+
+        liftMotor.set( VictorSPXControlMode.PercentOutput, voltage );
     }
 
     public static void Display () {
@@ -35,19 +54,8 @@ public class ElevLift {
         target_position = pos;
     }
 
-//
-//
-//
     public static void Reset () {
-        Lower();
-    }
-
-    public static void Raise () {
-        
-    }
-    
-    public static void Lower () {
-        
+        SetPosition( 0 );
     }
 
 }

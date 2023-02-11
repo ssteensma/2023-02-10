@@ -43,7 +43,7 @@ public class Track {
         switch ( Stage.Number ) {
             case 0:
                 Autopilot.DriveNorth( 0.20 );
-                Stage.WaitForDistance( 20*100 );
+                Stage.WaitForDistance( 20 * 100 );
                 break;
 
             case 1:
