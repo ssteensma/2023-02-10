@@ -92,4 +92,16 @@ public class Track {
         }
     }    
 
+    public static void Track_06 () {
+        switch ( Stage.Number ) {
+            case 0:
+                Stage.WaitForDuration( 1.00 );
+                break;
+
+            default:
+                Stage.Last();
+                break;
+        }
+    }    
+
 }

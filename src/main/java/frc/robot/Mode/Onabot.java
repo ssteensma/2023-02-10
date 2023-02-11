@@ -13,6 +13,7 @@ public class Onabot {
         Navigation .Initialize();
         Swerve     .Initialize();
 
+        // Lidar      .Initialize();
         // Sonar      .Initialize();
         // Vision     .Initialize();
     }
@@ -23,6 +24,7 @@ public class Onabot {
         Navigation .Display();
         Swerve     .Display();
 
+        // Lidar      .Display();
         // Sonar      .Display();
         // Vision     .Display();
     }

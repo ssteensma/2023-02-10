@@ -39,16 +39,18 @@ public class Autonomous {
             case "Path-02" : Track.Track_02(); break;
             case "Path-03" : Track.Track_03(); break;
             case "Path-04" : Track.Track_04(); break;
+            case "Path-05" : Track.Track_05(); break;
         }
 
         Stage.Next();
 
-        // only call is robot 
         if ( Stage.Number <= 100 ) { Stage.Display(); }
 
-        Elevator.Periodic();
 
         SmartDashboard.putString("CURRENT PATH", chooser.getSelected() );
+
+        // EXECUTE COMMANDS
+        Elevator.Periodic();
         Swerve.UpdateRobotRelative( Autopilot.vx, Autopilot.vy, Autopilot.vt );
  
         // Example chassis speeds: 1 meter per second forward, 3 meters
@@ -62,27 +64,11 @@ public class Autonomous {
         // SmartDashboard.putNumber("Robot-Pitch", curPitch);
         // SmartDashboard.putNumber("Robot-Stage", stage );
 
-        // double
-        //     vx = 0.00,
-        //     vy = 0.00,
-        //     vt = 0.00;
-
-        // if ( stage == 0 ) {
-        //     vx = 0.08;
-        //     if ( curPitch > 0 ) { stage++; };
-        // }
-
-        // if ( stage == 1 ) {
-        //     vx = 0;
-        // }
-
         // Navigation.Periodic();
         // double curAng = Navigation.GetDirection();
         // double target = 0;
 
         // double diff = curAng - target;
-
-        // SmartDashboard.putNumber("Robot-DIFF", diff);
 
         // // SMALLEST ANGLE TO SWIVEL: -180 to 180
         // double minTurn = ( diff + 180 ) % 360 - 180;

@@ -2,7 +2,7 @@ package frc.robot.Unused;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
 
-public class Sonar {
+public class SonarBack {
  
     public static Ultrasonic SonarBack;
 

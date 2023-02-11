@@ -10,7 +10,7 @@ public class ElevLift {
     public static double    last_position   = 0;
     public static double    target_position = 0;
     public static VictorSPX liftMotor;
-    public static double    voltage = 0;
+    public static double    power = 0;
 
     public static void Initialize () {
         liftMotor = new VictorSPX( 20 );
@@ -18,25 +18,57 @@ public class ElevLift {
 
     public static void Periodic () {
 
-        double current_position = 0;
+        // READ FROM SENSOR
+        double current_position = GetPosition();
 
         // CALCULATE DISPLACEMENT AND PSEUDO VELOCITY
         double displacement = target_position  - current_position;
         double velocity     = current_position - last_position;
 
-        // COORDINATE SYSTEM: + is up; - is down
-        double disMag = Math.abs( displacement ); double disSig = Math.signum( displacement );
-        double velMag = Math.abs( velocity     ); double velSig = Math.signum( velocity     );
-
         // TOLERANCES
-        double disTolerance = 5;
-        double velTolerance = 5;
+        double disTolerance  =  5; // Tolerance to consider at height
+        double velTolerance  =  3; // Tolerance to consider not moving
 
+        boolean at_position = Math.abs( displacement ) < disTolerance ? true : false;
+        boolean at_speed    = Math.abs( velocity     ) < velTolerance ? true : false;
+
+        //
         // SITUATIONS
-        voltage += displacement / 10;
+        //
+            // TURN MOTOR OFF IF POSSIBLE
+            if ( target_position == 0 & current_position == 0 ) { power = 0; }
 
-        liftMotor.set( VictorSPXControlMode.PercentOutput, voltage );
+            // AT POSITION
+            else if ( at_position      & at_speed       ) {                   } // On target
+            else if ( at_position      & velocity <   0 ) { increase_power(); } // Drifting down
+            else if ( at_position      & velocity >   0 ) { decrease_power(); } // Drifting up
+
+            // TOO LOW
+            else if ( displacement < 0 & velocity ==  0 ) { increase_power(); } // Not moving
+            else if ( displacement < 0 & velocity <   0 ) { increase_power(); } // Wrong direction
+            else if ( displacement < 0 & velocity <   5 ) { increase_power(); } // Up too slow
+            else if ( displacement < 0 & velocity >  10 ) { decrease_power(); } // Up too fast
+            else if ( displacement < 0                  ) {                   } // Just right
+
+            // TOO HIGH
+            else if ( displacement > 0 & velocity ==  0 ) { decrease_power(); } // Not moving
+            else if ( displacement > 0 & velocity >   0 ) { decrease_power(); } // Wrong direction
+            else if ( displacement > 0 & velocity >  -5 ) { decrease_power(); } // Down too slow
+            else if ( displacement > 0 & velocity < -10 ) { increase_power(); } // Down too fast
+            else if ( displacement > 0                  ) {                   } // Just right
+
+        // ENSURE POWER IS SAFE FOR TESTING
+        if ( power < -0.30 ) { power = -0.30; }
+        if ( power >  0.30 ) { power =  0.30; }
+
+        // SAFETY WHILE TESTING
+        power = 0;
+
+        liftMotor.set( VictorSPXControlMode.PercentOutput, power );
     }
+
+    public static void increase_power () { power += 0.001; }
+    public static void decrease_power () { power -= 0.001; }
 
     public static void Display () {
         SmartDashboard.putNumber("Elevator-Lift Pos", GetPosition()   );
@@ -57,5 +89,21 @@ public class ElevLift {
     public static void Reset () {
         SetPosition( 0 );
     }
+
+//
+//
+//
+    public static void SetHigh () {
+        target_position = 100;
+    }
+
+    public static void SetMedium () {
+        target_position = 50;
+    }
+
+    public static void SetLow () {
+        target_position = 0;
+    }
+
 
 }

@@ -52,6 +52,8 @@ public class Stage {
 	public static void Last () {
 		AutonFinalTime = System.currentTimeMillis();
 		ReadyToAdvance = false;
+
+		Autopilot.Stop();
 	}
 
 	public static void Fail () {

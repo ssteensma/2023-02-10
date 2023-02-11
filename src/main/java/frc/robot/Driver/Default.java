@@ -1,5 +1,6 @@
 package frc.robot.Driver;
 
+import frc.robot.Hardware.ElevLift;
 import frc.robot.Hardware.Swerve;
 import frc.robot.Mode.Teleop;
 
@@ -22,6 +23,10 @@ public class Default {
         if ( Ymag < 0.10 ) { Ymag = 0; } else { Ymag = Math.pow( Ymag-0.10, 2 ) / 2; }
         if ( Tmag < 0.20 ) { Tmag = 0; } else { Tmag = Math.pow( Tmag-0.20, 2 ) / 2; }
         
+        // TESTING COMMANDS
+        if      ( Teleop.DriveStick.getRawButton( 7 ) ) { ElevLift.SetHigh (); }
+        else                                            { ElevLift.SetLow  (); }
+
         // SEND SPEEDS TO SWERVE CLASS
         Swerve.UpdateRobotRelative( Xmag*Xsig, Ymag*Ysig, Tmag*Tsig );
     }    
