@@ -17,7 +17,7 @@ public class Default {
         double Ymag = Math.abs( Yratio ); double Ysig = Math.signum( Yratio );
         double Tmag = Math.abs( Tratio ); double Tsig = Math.signum( Tratio );
 
-        // SCALE SPEEDS: e.g., 0.20 is a 20% dead zone
+        // APPLY DEADZONE AND SCALE SPEEDS: e.g., 0.20 is a 20% dead zone
         if ( Xmag < 0.10 ) { Xmag = 0; } else { Xmag = Math.pow( Xmag-0.10, 2 ) / 2; }
         if ( Ymag < 0.10 ) { Ymag = 0; } else { Ymag = Math.pow( Ymag-0.10, 2 ) / 2; }
         if ( Tmag < 0.20 ) { Tmag = 0; } else { Tmag = Math.pow( Tmag-0.20, 2 ) / 2; }
