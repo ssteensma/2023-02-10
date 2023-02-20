@@ -13,7 +13,7 @@ public class ElevLift {
     public static double    power = 0;
 
     public static void Initialize () {
-        liftMotor = new VictorSPX( 20 );
+        liftMotor = new VictorSPX(Settings.LiftMotor_CAN_ID );
     }
 
     public static void Periodic () {
@@ -76,7 +76,9 @@ public class ElevLift {
     }
 
 //
-//
+// Not sure if an encoder will be part of the Lift Mechanism.
+// If not, this will need to be done using limit switches or
+// some other creative method.
 //
     public static double GetPosition () {
         return 0;
@@ -91,7 +93,9 @@ public class ElevLift {
     }
 
 //
-//
+// This intent of these methods is to have presets of where
+// the lift mechanism is intended to stop. Hopefully there will
+// be an encoder as part of the mechanism.
 //
     public static void SetHigh () {
         target_position = 100;

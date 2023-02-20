@@ -96,7 +96,7 @@ public class Autopilot {
         // MINIMIZE WHEEL SWIVEL: +120 becomes -60
         if ( turnMag > 90 ) {
             turnMag  = 180 - turnMag; // Turn smaller angle
-            turnDir *= -1;            // and reverse swivel
+            turnDir  = -1;            // and reverse swivel
         }
 
         // DETERMINE POWER USING PSEUDO PID CONTROLLER

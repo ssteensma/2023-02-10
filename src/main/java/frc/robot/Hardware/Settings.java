@@ -42,4 +42,6 @@ public class Settings {
         ClawGrabSpeed = -0.10,
         ClawDropSpeed = +0.10;
 
+    public static int
+        LiftMotor_CAN_ID = 0;
 }

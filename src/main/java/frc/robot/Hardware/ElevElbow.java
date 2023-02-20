@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevElbow {
 
     public static double target_position;
+    public static double last_position;
 
 //
-//
+// Need to determine what kind of motor controller is being
+// used here. Of course, it might also be pneumatics.
 //
     public static void Initialize () {
 

@@ -1,6 +1,5 @@
 package frc.robot.Hardware;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -48,30 +47,30 @@ public class Module {
         // DEFINE STEER ENCODER
         SteerEncoder = new EncTalonFX ( ModuleNumber );
 
-        if ( ModuleNumber == 1 ) {
+        // if ( ModuleNumber == 1 ) {
             // SteerMotor.configSelectedFeedbackSensor(
             //     FeedbackDevice., 1, 50 
             // );
 
-            SteerMotor.setSensorPhase( true ); // Invert if phase is incorret
+            // SteerMotor.setSensorPhase( true ); // Invert if phase is incorret
         
-            SteerMotor.configNominalOutputForward( 0, 30 ); // These are percent values
-            SteerMotor.configNominalOutputReverse( 0, 30 );
-            SteerMotor.configPeakOutputForward(  1, 30 );
-            SteerMotor.configPeakOutputReverse( -1, 30 );
+            // SteerMotor.configNominalOutputForward( 0, 30 ); // These are percent values
+            // SteerMotor.configNominalOutputReverse( 0, 30 );
+            // SteerMotor.configPeakOutputForward(  1, 30 );
+            // SteerMotor.configPeakOutputReverse( -1, 30 );
 
-            SteerMotor.selectProfileSlot( 0, 0 );
-            SteerMotor.config_kF( 0, 0.00, 30 );
-            SteerMotor.config_kP( 0, 0.10, 30 );
-            SteerMotor.config_kI( 0, 0.00, 30 );
-            SteerMotor.config_kD( 0, 0.00, 30 );
+            // SteerMotor.selectProfileSlot( 0, 0 );
+            // SteerMotor.config_kF( 0, 0.00, 30 );
+            // SteerMotor.config_kP( 0, 0.10, 30 );
+            // SteerMotor.config_kI( 0, 0.00, 30 );
+            // SteerMotor.config_kD( 0, 0.00, 30 );
 
-            SteerMotor.configMotionCruiseVelocity( 0.10, 30 );
-            SteerMotor.configMotionAcceleration  ( 0.10, 30 );
-        }
+            // SteerMotor.configMotionCruiseVelocity( 0.10, 30 );
+            // SteerMotor.configMotionAcceleration  ( 0.10, 30 );
+        // }
 
         // Set deadband to 0.1%. Default is 4%
-        SteerMotor.configNeutralDeadband( 0.001, 30 );
+        // SteerMotor.configNeutralDeadband( 0.001, 30 );
 
     }
 
@@ -97,8 +96,8 @@ public class Module {
         // CALCULATE TURN VALUES
         double SP = state.angle.getDegrees(); // Desired state (Final)
         double PV = GetDirection();           // Current state (Initial)
-            PV = ( PV % 360  + 360 ) % 360;          // Ensure SP is between 0 and 360
-            SP = ( SP % 360 + 360 ) % 360;          // Ensure SP is between 0 and 360
+            PV = ( PV % 360 + 360 ) % 360;    // Ensure SP is between 0 and 360
+            SP = ( SP % 360 + 360 ) % 360;    // Ensure SP is between 0 and 360
 
         // SMALLEST ANGLE TO SWIVEL: -180 to 180
         minTurn = ( PV - SP + 180 ) % 360 - 180;
@@ -134,11 +133,11 @@ public class Module {
         // SteerRatio  += SpeedPlus;
 
         // SET MOTOR CONTROLLERS
-        DriveMotor.set( ControlMode.Velocity, 30 );
-        SteerMotor.set( ControlMode.Position, 30 );
+        // DriveMotor.set( ControlMode.Velocity, 30 );
+        // SteerMotor.set( ControlMode.Position, 30 );
 
-        // DriveMotor.setVoltage( DriveRatio * 10 * reverse );
-        // SteerMotor.setVoltage( SteerRatio * 10 * turnDir );
+        DriveMotor.setVoltage( DriveRatio * 10 * reverse );
+        SteerMotor.setVoltage( SteerRatio * 10 * turnDir );
     }
 
 }
