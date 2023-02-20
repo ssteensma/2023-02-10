@@ -5,7 +5,7 @@ import frc.robot.Hardware.Autopilot;
 import frc.robot.Hardware.Elevator;
 import frc.robot.Hardware.Stage;
 import frc.robot.Hardware.Swerve;
-import frc.robot.Hardware.Track;
+import frc.robot.Hardware.Path;
 
 public class Autonomous {
 
@@ -17,17 +17,17 @@ public class Autonomous {
         Stage.Begin();
 
         switch ( AutonChooser.chooser.getSelected() ) {
-            case "Default" : Track.Track_00(); break;
-            case "Path-01" : Track.Track_01(); break;
-            case "Path-02" : Track.Track_02(); break;
-            case "Path-03" : Track.Track_03(); break;
-            case "Path-04" : Track.Track_04(); break;
-            case "Path-05" : Track.Track_05(); break;
+            case "Default" : Path.Track_00(); break;
+            case "Path-01" : Path.Track_01(); break;
+            case "Path-02" : Path.Track_02(); break;
+            case "Path-03" : Path.Track_03(); break;
+            case "Path-04" : Path.Track_04(); break;
+            case "Path-05" : Path.Track_05(); break;
         }
 
         Stage.Next();
 
-        if ( Stage.Number <= 40 ) { Stage.Display(); }
+        if ( Stage.StageNumber <= 40 ) { Stage.Display(); }
 
         // EXECUTE COMMANDS
         Elevator.Periodic();

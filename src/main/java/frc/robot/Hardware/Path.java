@@ -1,9 +1,9 @@
 package frc.robot.Hardware;
 
-public class Track {
+public class Path {
 
     public static void Track_00 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Autopilot.DriveNorth( 0.12 );
                 Stage.WaitForDistance( 200 );
@@ -16,7 +16,7 @@ public class Track {
     }
     
     public static void Track_01 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Stage.WaitForDuration( 1.00 );
                 break;
@@ -28,7 +28,7 @@ public class Track {
     }
     
     public static void Track_02 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Stage.WaitForDuration( 2.00 );
                 break;
@@ -40,7 +40,7 @@ public class Track {
     }
     
     public static void Track_03 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Autopilot.DriveNorth( 0.20 );
                 Stage.WaitForDistance( 20 * 100 );
@@ -63,7 +63,7 @@ public class Track {
     }
     
     public static void Track_04 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Autopilot.TurnToHeading( 90 );;
                 Stage.WaitForDuration( 2.00 );
@@ -81,7 +81,7 @@ public class Track {
     }
 
     public static void Track_05 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Stage.WaitForDuration( 1.00 );
                 break;
@@ -93,7 +93,7 @@ public class Track {
     }    
 
     public static void Track_06 () {
-        switch ( Stage.Number ) {
+        switch ( Stage.StageNumber ) {
             case 0:
                 Stage.WaitForDuration( 1.00 );
                 break;

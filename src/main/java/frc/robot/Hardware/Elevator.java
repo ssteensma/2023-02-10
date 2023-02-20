@@ -6,35 +6,35 @@ public class Elevator {
         ElevArm    .Initialize();
         ElevClaw   .Initialize();
         ElevLift   .Initialize();
-        ElevWrist  .Initialize();
+        ElevElbow  .Initialize();
     }
 
     public static void Periodic () {
         ElevArm    .Periodic();
         ElevClaw   .Periodic();
         ElevLift   .Periodic();
-        ElevWrist  .Periodic();
+        ElevElbow  .Periodic();
     }
 
     public static void Display () {
         ElevArm    .Display();
         ElevClaw   .Display();
         ElevLift   .Display();
-        ElevWrist  .Display();
+        ElevElbow  .Display();
     }
 
     public static void Reset () {
         ElevArm    .Reset();
-        ElevClaw   .Reset();
+        ElevClaw   .Stop();
         ElevLift   .Reset();
-        ElevWrist  .Reset();
+        ElevElbow  .Reset();
     }
 
     public static void Set ( double A, double C, double L, double W ) {
         ElevArm    .SetPosition( A );
-        ElevClaw   .SetPosition( C );
+        // ElevClaw   .SetPosition( C );
         ElevLift   .SetPosition( L );
-        ElevWrist  .SetPosition( W );
+        ElevElbow  .SetPosition( W );
     }
 
 }

@@ -8,10 +8,10 @@ public class Stage {
 	public static double   AutonFinalTime;
 	public static double   StageStartTime;
 	
-	public static int      Number;
+	public static int      StageNumber;
 	public static boolean  ReadyToAdvance;	
-	public static double[] StageDistance = new double[50];
-	public static double[] StageTime     = new double[50];
+	public static double[] StageDistance = new double[ Settings.MAX_NUMBER_OF_STAGES ];
+	public static double[] StageTime     = new double[ Settings.MAX_NUMBER_OF_STAGES ];
 
 	public static double   NegTilt = 0;
 	public static double   PosTilt = 0;
@@ -20,11 +20,11 @@ public class Stage {
 	public static void Initialize () {
 		AutonStartTime = System.currentTimeMillis();
 		StageStartTime = AutonStartTime;
-		Number         = 0;
+		StageNumber    = 0;
 	}
 
 	public static void Display () {
-		SmartDashboard.putNumber("Robot-Stage Number",   Number             );
+		SmartDashboard.putNumber("Robot-Stage Number",   StageNumber             );
 		SmartDashboard.putNumber("Robot-Stage Distance", GetDistance()      );
 		SmartDashboard.putNumber("Robot-Stage Time",     GetStageTime()     );
 		SmartDashboard.putNumber("Robot-Auton Time",     GetAutonDuration() );
@@ -41,18 +41,20 @@ public class Stage {
 
 	public static void Next () {
 		if ( ReadyToAdvance == true ) {
-			StageDistance[Number] = GetDistance();
-			StageTime    [Number] = GetStageTime();
+			StageDistance[ StageNumber ] = GetDistance();
+			StageTime    [ StageNumber ] = GetStageTime();
+
 			ResetOdometer();
+
 			StageStartTime = System.currentTimeMillis();
-			Number++;
+			StageNumber++;
 		}
 	}
 
 	public static void Last () {
 		AutonFinalTime = System.currentTimeMillis();
 		ReadyToAdvance = false;
-		Number = 19;
+		StageNumber = Settings.MAX_NUMBER_OF_STAGES;
 
 		Autopilot.Stop();
 	}
@@ -60,11 +62,11 @@ public class Stage {
 	public static void Fail () {
 		AutonFinalTime = System.currentTimeMillis();
 		ReadyToAdvance = false;
-		Number         = 20;
+		StageNumber    = Settings.MAX_NUMBER_OF_STAGES;
 	}
 
 //
-// Get...Time methods are is useful in auton mode to determine the amount
+// Get...Time methods are useful in auton mode to determine the amount
 // of time that the current stage or the entire auton process has been
 // executing.
 //

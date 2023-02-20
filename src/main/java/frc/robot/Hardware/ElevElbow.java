@@ -2,7 +2,7 @@ package frc.robot.Hardware;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevWrist {
+public class ElevElbow {
 
     public static double target_position;
 

@@ -12,7 +12,7 @@ public class Test {
     }
 
     public static void Periodic () {
-        Stage.Number = 0;
+        Stage.StageNumber = 0;
     }
 
 }

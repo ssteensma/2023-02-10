@@ -1,53 +1,59 @@
 package frc.robot.Hardware;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class ElevClaw {
 
-    public static double target_position;
+    public static VictorSPX
+        Lhand,
+        Rhand;
+
+    public static double
+        Lhand_power = 0,
+        Rhand_power = 0;
 
 //
-//
-//
+//  The Claw consists of two VexPro motor controllers.
+//  
     public static void Initialize () {
-
+        VictorSPX Lhand = new VictorSPX( Settings.Lhand_CAN_ID );
+        Lhand.setInverted( false );
+        
+        VictorSPX Rhand = new VictorSPX( Settings.Rhand_CAN_ID );
+        Rhand.setInverted( false );
     }
 
     public static void Periodic () {
-        // Some sort of controller to find the position
-        // difference and set the motor ratio. Might need
-        // a PID controller to hold position.   
+        Lhand.set( ControlMode.PercentOutput, Lhand_power );
+        Rhand.set( ControlMode.PercentOutput, Rhand_power );
     }
 
     public static void Display () {
-        SmartDashboard.putNumber("Elevator-Claw Pos", GetPosition()   );
-        SmartDashboard.putNumber("Elevator-Claw Tar", target_position );
     }
 
 //
 //
 //
-    public static void Reset () {
-        Open();
-    }
-
     public static void Grab () {
-        
+        Lhand_power = Settings.ClawGrabSpeed;
+        Rhand_power = Settings.ClawGrabSpeed;
     }
-    
-    public static void Open () {
-        
+
+    public static void Drop () {
+        Lhand_power = Settings.ClawDropSpeed;
+        Rhand_power = Settings.ClawDropSpeed;
     }
+
+    public static void Stop () {
+        Lhand_power = 0;
+        Rhand_power = 0;
+    }
+
 
 //
 //
 //
-    public static double GetPosition () {
-        return 0;
-    }
 
-    public static void SetPosition ( double pos ) {
-        target_position = pos;
-    }
 
 }

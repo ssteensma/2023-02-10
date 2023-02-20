@@ -24,6 +24,7 @@ public class Teleop {
         Yratio = -DriveStick.getX();
         Tratio = -DriveStick.getTwist();
 
+        // UPDATE ALL COMPONENTS
         Driver   .Periodic();
         Elevator .Periodic();
     }

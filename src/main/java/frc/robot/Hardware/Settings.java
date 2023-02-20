@@ -2,12 +2,16 @@ package frc.robot.Hardware;
 
 public class Settings {
 
+    // AUTON STAGES
+    public static int
+        MAX_NUMBER_OF_STAGES = 12;
+
     // CONTROLLER PORTS
     public static int
         DriveStickID = 0,
         ManipStickID = 1;
 
-    // MAXIMUM MODULE SPEEDS
+    // MAXIMUM SWERVE MODULE SPEEDS
     public static double 
         MAX_DRIVE_RATIO = 0.20;
 
@@ -28,5 +32,14 @@ public class Settings {
     // CLICKS PER FOOT
     public static double
         IN_PER_CLICK = ( Math.PI * 4 ) / EncTalonFX.kUnitsPerRevolution;
+
+    // ELEVATOR ASSIGNMENTS
+    public static int
+        Lhand_CAN_ID = 0,
+        Rhand_CAN_ID = 1;
+
+    public static double
+        ClawGrabSpeed = -0.10,
+        ClawDropSpeed = +0.10;
 
 }
