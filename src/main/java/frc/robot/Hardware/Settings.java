@@ -29,19 +29,26 @@ public class Settings {
         RLx = -1, RLy =  1,
         RRx = -1, RRy = -1;
 
-    // CLICKS PER FOOT
+    // CLICKS PER INCH
     public static double
         IN_PER_CLICK = ( Math.PI * 4 ) / EncTalonFX.kUnitsPerRevolution;
 
-    // ELEVATOR ASSIGNMENTS
+//
+// ELEVATOR ASSIGNMENTS
+//
+    // ARM
     public static int
-        Lhand_CAN_ID = 0,
-        Rhand_CAN_ID = 1;
+        Arm_CANID = 15;
 
-    public static double
-        ClawGrabSpeed = -0.10,
-        ClawDropSpeed = +0.10;
+    // ROLLER (Left, Right)
+    public static int[] Roller_CANID = {30,35};
 
+    // LIFT
     public static int
-        LiftMotor_CAN_ID = 0;
+        Lift_CANID = 20;
+
+
+
+
+
 }

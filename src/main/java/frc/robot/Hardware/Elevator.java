@@ -1,40 +1,36 @@
 package frc.robot.Hardware;
 
+import frc.robot.Elevator.Claw;
+import frc.robot.Elevator.Lift;
+import frc.robot.Elevator.Roller;
+
 public class Elevator {
 
     public static void Initialize () {
-        ElevArm    .Initialize();
-        ElevClaw   .Initialize();
-        ElevLift   .Initialize();
-        ElevElbow  .Initialize();
+        // Arm           .Initialize();
+        Claw          .Initialize();
+        Lift          .Initialize();
+        Roller        .Initialize();
     }
 
     public static void Periodic () {
-        ElevArm    .Periodic();
-        ElevClaw   .Periodic();
-        ElevLift   .Periodic();
-        ElevElbow  .Periodic();
+        // Arm           .Periodic();
+        Claw          .Periodic();
+        Lift          .Periodic();
+        Roller        .Periodic();
     }
 
     public static void Display () {
-        ElevArm    .Display();
-        ElevClaw   .Display();
-        ElevLift   .Display();
-        ElevElbow  .Display();
+        // Arm           .Display();
+        Claw          .Display();
+        Lift          .Display();
+        Roller        .Display();
     }
 
     public static void Reset () {
-        ElevArm    .Reset();
-        ElevClaw   .Stop();
-        ElevLift   .Reset();
-        ElevElbow  .Reset();
+        // Arm           .Reset();
+        Claw          .Reset();
+        Lift          .Reset();
+        Roller        .Reset();
     }
-
-    public static void Set ( double A, double C, double L, double W ) {
-        ElevArm    .SetPosition( A );
-        // ElevClaw   .SetPosition( C );
-        ElevLift   .SetPosition( L );
-        ElevElbow  .SetPosition( W );
-    }
-
 }

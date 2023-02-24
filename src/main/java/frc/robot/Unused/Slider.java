@@ -1,15 +1,13 @@
-package frc.robot.Hardware;
+package frc.robot.Unused;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ElevElbow {
+public class Slider {
 
-    public static double target_position;
-    public static double last_position;
+    public static double SP = 0;
 
 //
-// Need to determine what kind of motor controller is being
-// used here. Of course, it might also be pneumatics.
+//
 //
     public static void Initialize () {
 
@@ -22,8 +20,8 @@ public class ElevElbow {
     }
 
     public static void Display () {
-        SmartDashboard.putNumber("Elevator-Wrist Pos", GetPosition()   );
-        SmartDashboard.putNumber("Elevator-Wrist Tar", target_position );
+        SmartDashboard.putNumber("Slider Pos", GetPosition() );
+        SmartDashboard.putNumber("Slider Tar", SP            );
     }
 
 //
@@ -34,21 +32,21 @@ public class ElevElbow {
     }
 
     public static void SetPosition ( double pos ) {
-        target_position = pos;
+        SP = pos;
     }
 
 //
 //
 //
     public static void Reset () {
-        Bend();
+        Retract();
     }
 
-    public static void Bend () {
+    public static void Extend () {
         
     }
     
-    public static void Straighten () {
+    public static void Retract () {
         
     }
 

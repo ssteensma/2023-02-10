@@ -9,11 +9,11 @@ import frc.robot.Hardware.Swerve;
 public class Onabot {
 
     public static void Initialize () {
-        AutonChooser .Initialize();
-        Driver       .Initialize();
-        Elevator     .Initialize();
-        Navigation   .Initialize();
-        Swerve       .Initialize();
+        AutonChooser  .Initialize();
+        Driver        .Initialize();
+        Elevator      .Initialize();
+        Navigation    .Initialize();
+        Swerve        .Initialize();
 
         // Lidar      .Initialize();
         // Sonar      .Initialize();
@@ -21,11 +21,11 @@ public class Onabot {
     }
 
     public static void Periodic () {
-        AutonChooser .Display ();
-        Driver       .Display();
-        Elevator     .Display();
-        Navigation   .Display();
-        Swerve       .Display();
+        AutonChooser  .Display();
+        Driver        .Display();
+        Elevator      .Display();
+        Navigation    .Display();
+        Swerve        .Display();
 
         // Lidar      .Display();
         // Sonar      .Display();
