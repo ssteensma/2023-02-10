@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonChooser {
+
+    public static String AutonPath = "";
     
     public static final String kDefault = "Do Nothing";
     public static final String kPath01  = "Path-01";

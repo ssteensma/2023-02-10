@@ -18,6 +18,7 @@ public class Stage {
 	
 
 	public static void Initialize () {
+		
 		AutonStartTime = System.currentTimeMillis();
 		StageStartTime = AutonStartTime;
 		StageNumber    = 0;
@@ -54,7 +55,7 @@ public class Stage {
 	public static void Last () {
 		AutonFinalTime = System.currentTimeMillis();
 		ReadyToAdvance = false;
-		StageNumber = Settings.MAX_NUMBER_OF_STAGES;
+		StageNumber = Settings.MAX_NUMBER_OF_STAGES - 1;
 
 		Autopilot.Stop();
 	}

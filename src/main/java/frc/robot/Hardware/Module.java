@@ -15,6 +15,7 @@ public class Module {
     public WPI_TalonFX   DriveMotor;
     public WPI_TalonFX   SteerMotor;
     public PIDController SteerPID;
+    public double        TurnDiff     = 0;
     public double        SpeedPlus    = 0;
     public double        LastPosition = 0;
     public boolean       still_turning_flag = false;
@@ -25,6 +26,9 @@ public class Module {
     public double        reverse    = 0;
     public double        turnDir    = 0;
     public double        turnMag    = 0;
+    public double        Power      = 0;
+
+    public double        SteerOffset = 0;
 
     public Module ( String ModuleName, int ModuleNumber ) {
 
@@ -46,32 +50,6 @@ public class Module {
 
         // DEFINE STEER ENCODER
         SteerEncoder = new EncTalonFX ( ModuleNumber );
-
-        // if ( ModuleNumber == 1 ) {
-            // SteerMotor.configSelectedFeedbackSensor(
-            //     FeedbackDevice., 1, 50 
-            // );
-
-            // SteerMotor.setSensorPhase( true ); // Invert if phase is incorret
-        
-            // SteerMotor.configNominalOutputForward( 0, 30 ); // These are percent values
-            // SteerMotor.configNominalOutputReverse( 0, 30 );
-            // SteerMotor.configPeakOutputForward(  1, 30 );
-            // SteerMotor.configPeakOutputReverse( -1, 30 );
-
-            // SteerMotor.selectProfileSlot( 0, 0 );
-            // SteerMotor.config_kF( 0, 0.00, 30 );
-            // SteerMotor.config_kP( 0, 0.10, 30 );
-            // SteerMotor.config_kI( 0, 0.00, 30 );
-            // SteerMotor.config_kD( 0, 0.00, 30 );
-
-            // SteerMotor.configMotionCruiseVelocity( 0.10, 30 );
-            // SteerMotor.configMotionAcceleration  ( 0.10, 30 );
-        // }
-
-        // Set deadband to 0.1%. Default is 4%
-        // SteerMotor.configNeutralDeadband( 0.001, 30 );
-
     }
 
     public void Display () {
@@ -104,40 +82,31 @@ public class Module {
             turnMag = Math.abs   ( minTurn );
             turnDir = Math.signum( minTurn );
 
-        // MINIMIZE WHEEL SWIVEL: +120 becomes -60
-        if ( turnMag > 90 ) {
-            turnMag  = 180 - turnMag; // Turn smaller angle
-            turnDir *= -1;            // and reverse swivel
-            reverse *= -1;            // and reverse drive
-        }
+            // MINIMIZE WHEEL SWIVEL: +120 becomes -60
+            if ( turnMag > +90 ) {
+                turnMag  = 180 - turnMag; // Turn smaller angle
+                turnDir *= -1;            // and reverse swivel
+                reverse *= -1;            // and reverse drive
+            }
 
         // DETERMINE POWER USING PSEUDO PID CONTROLLER
-        if      ( turnMag > 20 ) { SteerRatio = 0.20; }
-        else if ( turnMag > 10 ) { SteerRatio = 0.15; }
-        else if ( turnMag >  1 ) { SteerRatio = 0.08; }
-        else                     { SteerRatio = 0.00; }
+        double SteerRatio = turnMag / 100; 
 
-        // If any the heading difference of any wheel is more than one degree and the
-        // module has not turned in the last 20 ms then increase the turning speed.
-        // double  CurrentPosition = SteerEncoder.FalconEncoder.getAbsolutePosition();
-        // boolean is_moving = CurrentPosition == LastPosition ? false : true;
-        // if      ( turnMag < 1 ) { SpeedPlus  = 0.000; }
-        // else if ( ! is_moving ) { SpeedPlus += 0.001; }
-        // else                    {                     }
+        // INCREASE STEERE OFFSET IF NOT MOVING
+        double CurrentTurnSpeed = SteerMotor.getSelectedSensorVelocity();
+        if ( CurrentTurnSpeed == 0 & turnMag > 1 ) {
+            SteerOffset += 0.0005;
+        }
 
-        // SET TURNING FLAG, CHECKED BY DRIVETRAIN
-        // still_turning_flag = turnMag >= 5 ? true : false;
-
-        // RESET LAST POSITION TO SEE IF MOVEMENT OCCURED
-        // LastPosition = CurrentPosition;
-        // SteerRatio  += SpeedPlus;
+        // ONE DEGREEE OFF IS GOOD ENOUGH
+        if ( turnMag < 1 ) {
+            SteerOffset = 0;
+            SteerRatio  = 0;
+        }
 
         // SET MOTOR CONTROLLERS
-        // DriveMotor.set( ControlMode.Velocity, 30 );
-        // SteerMotor.set( ControlMode.Position, 30 );
-
-        DriveMotor.setVoltage( DriveRatio * 10 * reverse );
-        SteerMotor.setVoltage( SteerRatio * 10 * turnDir );
+        DriveMotor.setVoltage( DriveRatio * 11.5 * reverse );
+        SteerMotor.setVoltage( SteerRatio * 11.5 * turnDir );
     }
 
 }

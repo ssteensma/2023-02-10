@@ -6,6 +6,7 @@ import frc.robot.Hardware.Elevator;
 import frc.robot.Hardware.Stage;
 import frc.robot.Hardware.Swerve;
 import frc.robot.Hardware.Path;
+import frc.robot.Hardware.Settings;
 
 public class Autonomous {
 
@@ -25,9 +26,9 @@ public class Autonomous {
             case "Path-05" : Path.Track_05(); break;
         }
 
-        Stage.Next();
-
-        if ( Stage.StageNumber <= 40 ) { Stage.Display(); }
+        if ( Stage.StageNumber < Settings.MAX_NUMBER_OF_STAGES ) {
+            Stage.Next();
+        }
 
         // EXECUTE COMMANDS
         Elevator.Periodic();

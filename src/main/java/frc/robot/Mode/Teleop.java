@@ -2,8 +2,8 @@ package frc.robot.Mode;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Hardware.Driver;
-import frc.robot.Hardware.Elevator;
 import frc.robot.Hardware.Settings;
+import frc.robot.Hardware.Stage;
 
 public class Teleop {
 
@@ -26,7 +26,9 @@ public class Teleop {
 
         // UPDATE ALL COMPONENTS
         Driver   .Periodic();
-        Elevator .Periodic();
+        // Elevator .Periodic();
+
+        Stage.StageNumber = 0;
     }
 
     public static void Display () {

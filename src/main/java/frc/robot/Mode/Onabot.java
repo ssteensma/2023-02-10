@@ -4,6 +4,7 @@ import frc.robot.Hardware.AutonChooser;
 import frc.robot.Hardware.Driver;
 import frc.robot.Hardware.Elevator;
 import frc.robot.Hardware.Navigation;
+import frc.robot.Hardware.Stage;
 import frc.robot.Hardware.Swerve;
 
 public class Onabot {
@@ -30,6 +31,8 @@ public class Onabot {
         // Lidar      .Display();
         // Sonar      .Display();
         // Vision     .Display();
+
+        Stage.Display();
     }
     
 }

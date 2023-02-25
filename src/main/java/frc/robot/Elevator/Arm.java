@@ -1,5 +1,6 @@
 package frc.robot.Elevator;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -7,11 +8,24 @@ import frc.robot.Hardware.Settings;
 
 public class Arm {
 
-    public static TalonSRX Arm;
-    public static double   Lo = 23000;
-    public static double   Hi = 0;
-    public static double   SP = Hi;
-    public static double   power = 0;
+    public static TalonSRX
+        Arm;
+
+    public static double
+        angle,
+        direction,
+        LO        = 0,
+        MD        = 60,
+        HI        = 90,
+        maximum   = -22000,
+
+        PosPV = 0, PosSP = HI, PosER = 0,
+        VelPV = 0, VelSP =  0, VelER = 0,
+
+        kF        = 0,
+        tolerance = 5, // degrees
+
+        Power     = 0;
 
 //
 //
@@ -19,59 +33,86 @@ public class Arm {
     public static void Initialize () {
         Arm = new TalonSRX( Settings.Arm_CANID );
         Arm  .setInverted( true );
+        Arm  .setSelectedSensorPosition( 90 );
     }
 
     public static void Periodic () {
 
-        // Positive = Too low
-        // Negative = Too high
-        // double curr = GetPosition();
-        // double diff = GetPosition() - SP;
+        // POSITION VALUES
+        PosPV = GetPosition();
+        PosER = PosSP - PosPV;
+        VelPV = GetVelocity();
 
-        // MOVING THE ARM UP
-        // if ( target_position == Hi ) {
-        // }
-        
-        // MOVING THE ARM DOWN
-        // else {
-        //     if ( curr > 700 ) {
-        //         power = 
-        //     }
+        // VELOCITY SET POINT (Depends on PosER)
+        if ( PosER > 0 ) { VelSP = +800; } // 
+        if ( PosER < 0 ) { VelSP = -800; } // 
 
+        // ADJUST VELOCITY
+        VelER = VelSP - VelPV;
+        Power += 0.00001 * VelER;
 
-        // }
+        // CUT POWER WHEN WITHIN RANGE
+        if ( Math.abs(PosER) < 5 ) { Power = 0; }
 
+        // MAXIMUM POWER
+        if ( Power < -0.90 ) { Power = -0.90; }
+        if ( Power > +0.90 ) { Power = +0.90; }
+
+        // SET POWER
+        Arm.set( ControlMode.PercentOutput, Power );
     }
 
     public static void Display () {
-        SmartDashboard.putNumber("Arm PV", GetPosition() );
-        SmartDashboard.putNumber("Arm SP", SP            );
+        SmartDashboard.putNumber("Arm Pos PV", GetPosition() );
+        SmartDashboard.putNumber("Arm Pos SP", PosSP         );
+
+        SmartDashboard.putNumber("Arm Vel PV", GetVelocity() );
+        SmartDashboard.putNumber("Arm Vel SP", VelSP         );
+
+        SmartDashboard.putNumber("ARM POWER", Power );
+        SmartDashboard.putNumber("Arm PosER", PosER );
+        SmartDashboard.putNumber("Arm VelER", VelER );
     }
 
 //
-//
-//
+// POSITION       VELOCITY
+//  0 horizontal  + is movign up
+// 90 vertical    - is moving down
     public static double GetPosition () {
-        return Arm.getSelectedSensorPosition();
+        double PV = Arm.getSelectedSensorPosition();
+        PosPV = 90 - PV / maximum * 90;
+        return PosPV;
+    }
+
+    public static double GetVelocity () {
+        VelPV = Arm.getSelectedSensorVelocity();
+        return VelPV;
     }
 
     public static void SetPosition ( double pos ) {
-        SP = pos;
+        PosSP = pos;
     }
 
 //
 //
 //
     public static void Reset () {
-        Bend();
+        SetHI();
     }
 
-    public static void Bend () {
-        SP = Hi;
+    public static void SetHI () {
+        Power = 0.35;
+        PosSP = HI;
+    }
+
+    public static void SetMD () {
+        Power = 0.00;
+        PosSP = MD;
     }
     
-    public static void Straighten () {
-        SP = Lo;
+    public static void SetLO () {
+        Power = 0.10;
+        PosSP = LO;
     }
 
 }

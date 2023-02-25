@@ -13,11 +13,13 @@ public class Roller {
         Rroller;
 
     public static double
-        Power = 0;
+        Power;
 
     public static void Initialize () {
         Lroller = new VictorSPX( Settings.Roller_CANID[0] );
         Rroller = new VictorSPX( Settings.Roller_CANID[1] );
+
+        Power = 0;
 
         Lroller.setInverted( false );
         Rroller.setInverted( true  );
@@ -37,6 +39,6 @@ public class Roller {
 //
     public static void Reset () { Stop();        }
     public static void Spit ()  { Power = +0.20; }
-    public static void Suck ()  { Power = -1.00; }
+    public static void Suck ()  { Power = -0.30; }
     public static void Stop ()  { Power = +0.00; }
 }

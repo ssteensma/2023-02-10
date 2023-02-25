@@ -4,7 +4,7 @@ public class Settings {
 
     // AUTON STAGES
     public static int
-        MAX_NUMBER_OF_STAGES = 12;
+        MAX_NUMBER_OF_STAGES = 20;
 
     // CONTROLLER PORTS
     public static int
@@ -13,7 +13,7 @@ public class Settings {
 
     // MAXIMUM SWERVE MODULE SPEEDS
     public static double 
-        MAX_DRIVE_RATIO = 0.20;
+        MAX_DRIVE_RATIO = 1.00;
 
     // MODULE ASSIGNMENTS
     public static int
@@ -41,14 +41,14 @@ public class Settings {
         Arm_CANID = 15;
 
     // ROLLER (Left, Right)
-    public static int[] Roller_CANID = {30,35};
+    public static int[]
+        Roller_CANID = { 30, 35 };
 
     // LIFT
     public static int
         Lift_CANID = 20;
 
-
-
-
+    public static int[]
+        LiftSonar_DIO = { 0, 1 };
 
 }
