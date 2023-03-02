@@ -29,6 +29,10 @@ public class Settings {
         RLx = -1, RLy =  1,
         RRx = -1, RRy = -1;
 
+    // FRONT SONAR
+    public static int[]
+        FrontSonar_DIO = { 3, 2 };
+
     // CLICKS PER INCH
     public static double
         IN_PER_CLICK = ( Math.PI * 4 ) / EncTalonFX.kUnitsPerRevolution;
@@ -46,7 +50,8 @@ public class Settings {
 
     // LIFT
     public static int
-        Lift_CANID = 20;
+        LiftR_CANID = 20,
+        LiftL_CANID = 21;
 
     public static int[]
         LiftSonar_DIO = { 0, 1 };

@@ -14,6 +14,7 @@ public class Arm {
     public static double
         angle,
         direction,
+        displacement = 0,
         LO        = 0,
         MD        = 60,
         HI        = 90,
@@ -44,19 +45,20 @@ public class Arm {
         VelPV = GetVelocity();
 
         // VELOCITY SET POINT (Depends on PosER)
-        if ( PosER > 0 ) { VelSP = +800; } // 
-        if ( PosER < 0 ) { VelSP = -800; } // 
+        if ( PosER > 0 ) { VelSP = +1200; }
+        if ( PosER < 0 ) { VelSP = -700; }
 
         // ADJUST VELOCITY
         VelER = VelSP - VelPV;
-        Power += 0.00001 * VelER;
-
-        // CUT POWER WHEN WITHIN RANGE
-        if ( Math.abs(PosER) < 5 ) { Power = 0; }
+        Power += 0.00005 * VelER;
 
         // MAXIMUM POWER
         if ( Power < -0.90 ) { Power = -0.90; }
         if ( Power > +0.90 ) { Power = +0.90; }
+
+        // CUT POWER WHEN WITHIN RANGE
+        if ( Math.abs(PosER) < 5 ) { Power = 0; }
+        if ( PosSP == LO & PosPV < LO ) { Power = 0; }
 
         // SET POWER
         Arm.set( ControlMode.PercentOutput, Power );

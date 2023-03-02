@@ -9,7 +9,10 @@ import frc.robot.Hardware.Settings;
 
 public class Lift {
 
-    public static VictorSPX  liftMotor;
+    public static VictorSPX 
+        liftMotorL,
+        liftMotorR;
+
     public static double     SP;
     public static double     power = 0;
 
@@ -18,7 +21,7 @@ public class Lift {
     public static double
         HI = 27.0,
         MD = 10.0,
-        LO =  4.0;
+        LO = 4.5;
 
     public static double
         kP =  0.2;
@@ -33,7 +36,8 @@ public class Lift {
 //
 //
     public static void Initialize () {
-        liftMotor = new VictorSPX( Settings.Lift_CANID );
+        liftMotorL = new VictorSPX( Settings.LiftL_CANID );
+        liftMotorR = new VictorSPX( Settings.LiftR_CANID );
 
         Sonar = new Ultrasonic(
             Settings.LiftSonar_DIO[0], // Input
@@ -51,19 +55,20 @@ public class Lift {
         double PV = GetPosition();
 
         // CALCULATE DISPLACEMENT AND PSEUDO VELOCITY
-        displacement = SP - PV;                     // Displacement in inches
+        displacement = SP - PV;    // Displacement in inches
         ratio = displacement / 28;
 
         direction    = Math.signum( displacement ); // +1 for up; -1 for down
         // ratio        = displacement / ( HI - LO );  // Displacement ratio ( 0 to 1 )
 
         // SIMPLE PID CONTROLLER BASED RATIO
-        power = direction * 0.90;
+        power = direction * 0.80;
 
-        if ( Math.abs( displacement ) < 1 ) { power = 0; }
+        if ( Math.abs( displacement ) < 2 ) { power = 0; }
 
         // SET MOTOR POWER
-        liftMotor.set( VictorSPXControlMode.PercentOutput, power );
+        liftMotorL.set( VictorSPXControlMode.PercentOutput, power );
+        liftMotorR.set( VictorSPXControlMode.PercentOutput, power );
     }
 
 //
@@ -95,18 +100,18 @@ public class Lift {
     }
 
     public static void Reset () {
-        SetLow();
+        SetLO();
     }
 
-    public static void SetHigh () {
+    public static void SetHI () {
         SP = HI;
     }
 
-    public static void SetMed () {
+    public static void SetMD () {
         SP = MD;
     }
 
-    public static void SetLow () {
+    public static void SetLO () {
         SP = LO;
     }
 

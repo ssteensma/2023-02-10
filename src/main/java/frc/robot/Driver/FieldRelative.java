@@ -30,7 +30,7 @@ public class FieldRelative {
         
         // TESTING COMMANDS
         if ( Teleop.DriveStick.getRawButton( 5 ) ) {
-            Elevator.SetLO();
+            Elevator.Reset();
         }
 
         if ( Teleop.DriveStick.getRawButton( 3 ) ) {
@@ -44,11 +44,11 @@ public class FieldRelative {
         }
 
         if ( Teleop.DriveStick.getRawButton( 6 ) ) {
-            Elevator.PullIn();
+            // Elevator.PullIn();
         }
 
         if ( Teleop.DriveStick.getRawButton( 7 ) ) {
-            Elevator.SetHI();
+            // Elevator.SetHI();
         }
 
         if ( Teleop.DriveStick.getRawButton( 4 ) ) {

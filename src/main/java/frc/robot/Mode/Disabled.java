@@ -1,5 +1,6 @@
 package frc.robot.Mode;
 
+import frc.robot.Hardware.AutonChooser;
 import frc.robot.Hardware.Stage;
 
 public class Disabled {
@@ -9,6 +10,7 @@ public class Disabled {
     }
 
     public static void Periodic () {
+        AutonChooser.AutonPath = AutonChooser.chooser.getSelected();
     }
 
 }

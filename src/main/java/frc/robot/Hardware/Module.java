@@ -1,5 +1,6 @@
 package frc.robot.Hardware;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -69,13 +70,13 @@ public class Module {
 
         // CALCULATE DRIVE VALUES
         DriveRatio = state.speedMetersPerSecond;
-        reverse = 1;
+        reverse    = 1;
 
         // CALCULATE TURN VALUES
         double SP = state.angle.getDegrees(); // Desired state (Final)
         double PV = GetDirection();           // Current state (Initial)
-            PV = ( PV % 360 + 360 ) % 360;    // Ensure SP is between 0 and 360
-            SP = ( SP % 360 + 360 ) % 360;    // Ensure SP is between 0 and 360
+            PV = ( PV + 360 ) % 360;    // Ensure SP is between 0 and 360
+            SP = ( SP + 360 ) % 360;    // Ensure SP is between 0 and 360
 
         // SMALLEST ANGLE TO SWIVEL: -180 to 180
         minTurn = ( PV - SP + 180 ) % 360 - 180;
@@ -85,28 +86,29 @@ public class Module {
             // MINIMIZE WHEEL SWIVEL: +120 becomes -60
             if ( turnMag > +90 ) {
                 turnMag  = 180 - turnMag; // Turn smaller angle
-                turnDir *= -1;            // and reverse swivel
-                reverse *= -1;            // and reverse drive
+                turnDir  = -1;            // and reverse swivel
+                reverse  = -1;            // and reverse drive
             }
 
         // DETERMINE POWER USING PSEUDO PID CONTROLLER
-        double SteerRatio = turnMag / 100; 
+        double SteerRatio = turnMag / 200; 
 
         // INCREASE STEERE OFFSET IF NOT MOVING
-        double CurrentTurnSpeed = SteerMotor.getSelectedSensorVelocity();
-        if ( CurrentTurnSpeed == 0 & turnMag > 1 ) {
-            SteerOffset += 0.0005;
-        }
+        // double CurrentTurnSpeed = SteerMotor.getSelectedSensorVelocity();
+        // if ( CurrentTurnSpeed == 0 & turnMag > 1 ) {
+        //     SteerOffset += 0.0005;
+        // }
 
         // ONE DEGREEE OFF IS GOOD ENOUGH
-        if ( turnMag < 1 ) {
-            SteerOffset = 0;
-            SteerRatio  = 0;
-        }
+        // if ( turnMag < 5 ) {
+            // SteerOffset = 0;
+            // SteerRatio  = 0.10;
+            // turnDir     = 1;
+        // }
 
         // SET MOTOR CONTROLLERS
-        DriveMotor.setVoltage( DriveRatio * 11.5 * reverse );
-        SteerMotor.setVoltage( SteerRatio * 11.5 * turnDir );
+        DriveMotor.set( ControlMode.PercentOutput, DriveRatio * reverse );
+        SteerMotor.set( ControlMode.PercentOutput, SteerRatio * turnDir );
     }
 
 }

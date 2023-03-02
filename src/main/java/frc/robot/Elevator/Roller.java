@@ -38,7 +38,8 @@ public class Roller {
 //
 //
     public static void Reset () { Stop();        }
-    public static void Spit ()  { Power = +0.20; }
-    public static void Suck ()  { Power = -0.30; }
-    public static void Stop ()  { Power = +0.00; }
+    public static void Drool () { Power = +0.20; }
+    public static void Spit  () { Power = +1.00; }
+    public static void Suck  () { Power = -0.30; }
+    public static void Stop  () { Power = +0.00; }
 }

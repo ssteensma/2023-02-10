@@ -29,36 +29,25 @@ public class Elevator {
     }
 
     public static void Reset () {
-        Arm           .Reset();
-        Claw          .Reset();
-        Lift          .Reset();
-        Roller        .Reset();
+        Arm           .Reset(); // SetHI
+        Claw          .Reset(); // Drop
+        Lift          .Reset(); // SetLO
+        Roller        .Reset(); // Stop
     }
 
 //
 //
 //
-    public static void SetLO () {
-        Arm    .SetLO();
-        Claw   .Drop();
-        Lift   .SetLow();
-        Roller .Stop();
+    public static void Preset1 () {
+        Lift   .SetLO();
     }
 
-    public static void PullIn () {
-        Arm    .SetHI();
-        Lift   .SetLow();
-        Roller .Stop();
+    public static void Preset2 () {
+        Lift   .SetLO();
     }
 
-    public static void SetHI () {
-        Arm    .SetHI();
-        Lift   .SetHigh();
-        Roller .Stop();
-    }
-
-    public static void PrepareToDrop () {
-        Arm    .SetMD();
+    public static void Preset3 () {
+        Lift   .SetHI();
     }
 
 }

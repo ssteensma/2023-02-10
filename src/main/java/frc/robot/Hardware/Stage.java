@@ -1,6 +1,8 @@
 package frc.robot.Hardware;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Elevator.Arm;
+import frc.robot.Elevator.Lift;
 
 public class Stage {
 
@@ -13,22 +15,34 @@ public class Stage {
 	public static double[] StageDistance = new double[ Settings.MAX_NUMBER_OF_STAGES ];
 	public static double[] StageTime     = new double[ Settings.MAX_NUMBER_OF_STAGES ];
 
-	public static double   NegTilt = 0;
-	public static double   PosTilt = 0;
-	
+	public static double
+		NegTilt = 0,
+		PosTilt = 0;
+
+	public static boolean
+		DoneWithAuton = true;
 
 	public static void Initialize () {
 		
 		AutonStartTime = System.currentTimeMillis();
+		DoneWithAuton  = false;
 		StageStartTime = AutonStartTime;
 		StageNumber    = 0;
+
+		for ( int i = 0; i < 5; i++ ) {
+			StageDistance[i] = 0;
+			StageTime[i]     = 0;
+		}
 	}
 
 	public static void Display () {
 		SmartDashboard.putNumber("Robot-Stage Number",   StageNumber             );
-		SmartDashboard.putNumber("Robot-Stage Distance", GetDistance()      );
-		SmartDashboard.putNumber("Robot-Stage Time",     GetStageTime()     );
 		SmartDashboard.putNumber("Robot-Auton Time",     GetAutonDuration() );
+
+		for ( int i = 0; i < 5; i++ ) {
+			SmartDashboard.putNumber("Stage Time " + i, StageTime[i] );
+			SmartDashboard.putNumber("Stage Dist " + i, StageDistance[i]     );
+		}
 	}
 
 //
@@ -36,14 +50,14 @@ public class Stage {
 // information. The Last method stops 
 //
 	public static void Begin () {
-		Autopilot.Stop();
 		ReadyToAdvance = true;
 	}
 
 	public static void Next () {
-		if ( ReadyToAdvance == true ) {
-			StageDistance[ StageNumber ] = GetDistance();
-			StageTime    [ StageNumber ] = GetStageTime();
+		StageDistance[ StageNumber ] = GetDistance();
+		StageTime    [ StageNumber ] = GetStageTime();
+
+		if ( (ReadyToAdvance == true) && (DoneWithAuton == false) ) {
 
 			ResetOdometer();
 
@@ -54,10 +68,12 @@ public class Stage {
 
 	public static void Last () {
 		AutonFinalTime = System.currentTimeMillis();
-		ReadyToAdvance = false;
-		StageNumber = Settings.MAX_NUMBER_OF_STAGES - 1;
+		DoneWithAuton  = true;
+		// ReadyToAdvance = false;
+		// StageNumber = Settings.MAX_NUMBER_OF_STAGES - 1;
 
 		Autopilot.Stop();
+		Elevator.Reset();
 	}
 
 	public static void Fail () {
@@ -90,18 +106,20 @@ public class Stage {
 //
 	public static double GetDistance () {
 		double FL = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
-		double FR = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
-		double RL = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
-		double RR = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
+		// double FR = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
+		// double RL = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
+		// double RR = Swerve.FL_module.DriveMotor.getSelectedSensorPosition();
 
 		// ABS SINCE SOME WHEELS GOING BACKWARD
 		FL = Math.abs( FL );
-		FR = Math.abs( FR );
-		RL = Math.abs( RL );
-		RR = Math.abs( RR );
+		// FR = Math.abs( FR );
+		// RL = Math.abs( RL );
+		// RR = Math.abs( RR );
 		
+		// return Math.abs( FL );
 		// TAKE AN AVERAGE FOR SIMPLICITY
-		return ( FL + FR + RL + RR ) * Settings.IN_PER_CLICK / 4;
+		// return ( FL + FR + RL + RR ) * Settings.IN_PER_CLICK / 4;
+		return ( FL / 1000 * 3/4 );
 	}
 
 	public static void ResetOdometer () {
@@ -112,7 +130,7 @@ public class Stage {
 	}
 
 	public static void WaitForDistance ( double Distance ) {
-		if ( GetDistance() < Distance ) {
+		if ( GetDistance() <= Distance ) {
 			ReadyToAdvance = false;
 		}
 	}
@@ -150,7 +168,24 @@ public class Stage {
 //
 //
 //
-	// public static void WaitForWheelAlignment ( double Angle ) {
+	public static void WaitForArm ( double Tolerance ) {
+		if ( Math.abs( Arm.PosER ) > 1.5 ) {
+			ReadyToAdvance = false;
+		}
+	}
+
+	public static void WaitForArmLift ( double ArmTolerance, double LiftTolerance ) {
+		WaitForArm ( ArmTolerance  );
+		WaitForLift( LiftTolerance );
+	}
+
+	public static void WaitForLift ( double Tolerance ) {
+		if ( Math.abs( Lift.displacement ) > 1.5 ) {
+			ReadyToAdvance = false;
+		}
+	}
+
+// public static void WaitForWheelAlignment ( double Angle ) {
 
 	// }
 	// public static void WaitForHeading ( double Heading, double Tolerance ) {

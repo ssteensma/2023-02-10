@@ -77,26 +77,26 @@ public class Swerve {
     private static void Update ( ChassisSpeeds Speeds ) {
 
         // WAIT FOR WHEEL TO ADJUST TO HEADING
-        boolean ok_to_drive = true;
-        if ( FL_module.still_turning_flag ) { ok_to_drive = false; }
-        if ( FR_module.still_turning_flag ) { ok_to_drive = false; }
-        if ( RL_module.still_turning_flag ) { ok_to_drive = false; }
-        if ( RR_module.still_turning_flag ) { ok_to_drive = false; }
+        // boolean ok_to_drive = true;
+        // if ( FL_module.still_turning_flag ) { ok_to_drive = false; }
+        // if ( FR_module.still_turning_flag ) { ok_to_drive = false; }
+        // if ( RL_module.still_turning_flag ) { ok_to_drive = false; }
+        // if ( RR_module.still_turning_flag ) { ok_to_drive = false; }
 
         // ALIGN WHEELS BEFORE TRANSLATION
-        if ( ! ok_to_drive ) {
-            Speeds.vxMetersPerSecond = 0;
-            Speeds.vyMetersPerSecond = 0;
-        }
+        // if ( ! ok_to_drive ) {
+        //     Speeds.vxMetersPerSecond = 0;
+        //     Speeds.vyMetersPerSecond = 0;
+        // }
 
         // CALCULATE INDIVIDUAL MODULE STATES
         SwerveModuleState[] ModuleStates = Kinematics.toSwerveModuleStates( Speeds );
 
         // NORMALIZE WHEEL RATIOS IF ANY SPEED IS ABOVE SPECIFIED MAXIMUM
-        SwerveDriveKinematics.desaturateWheelSpeeds( ModuleStates, Settings.MAX_DRIVE_RATIO );
+        // SwerveDriveKinematics.desaturateWheelSpeeds( ModuleStates, Settings.MAX_DRIVE_RATIO );
 
         // UPDATE ROBOT SPEEDS
-        RobotSpeed = Kinematics.toChassisSpeeds( ModuleStates );
+        // RobotSpeed = Kinematics.toChassisSpeeds( ModuleStates );
 
         // UPDATE EACH MODULE
         FL_module.Update( ModuleStates[0] );

@@ -1,22 +1,24 @@
 package frc.robot.Mode;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Hardware.Driver;
+import frc.robot.Hardware.Elevator;
 import frc.robot.Hardware.Settings;
-import frc.robot.Hardware.Stage;
 
 public class Teleop {
 
-    public static Joystick DriveStick;
-    public static Joystick ManipStick;
+    public static Joystick       DriveStick;
+    public static XboxController ManipStick;
 
-    public static double Xratio;
-    public static double Yratio;
-    public static double Tratio;
+    public static double
+        Xratio,
+        Yratio,
+        Tratio;
 
     public static void Initialize () {
-        DriveStick = new Joystick( Settings.DriveStickID );
-        ManipStick = new Joystick( Settings.ManipStickID );
+        DriveStick = new Joystick(       Settings.DriveStickID );
+        ManipStick = new XboxController( Settings.ManipStickID );
     }
 
     public static void Periodic () {
@@ -26,9 +28,7 @@ public class Teleop {
 
         // UPDATE ALL COMPONENTS
         Driver   .Periodic();
-        // Elevator .Periodic();
-
-        Stage.StageNumber = 0;
+        Elevator .Periodic();
     }
 
     public static void Display () {
