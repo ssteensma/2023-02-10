@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.Mode.Autonomous;
 import frc.robot.Mode.Disabled;
 import frc.robot.Mode.Simulation;
-import frc.robot.Mode.Teleop;
 import frc.robot.Mode.Test;
+import frc.robot.Mode.Teleop;
 import frc.robot.Mode.Onabot;
 
 public class Robot extends TimedRobot {

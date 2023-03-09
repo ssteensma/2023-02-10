@@ -4,6 +4,7 @@ import frc.robot.Elevator.Arm;
 import frc.robot.Elevator.Claw;
 import frc.robot.Elevator.Lift;
 import frc.robot.Elevator.Roller;
+import frc.robot.Elevator.Slider;
 
 public class Elevator {
 
@@ -12,6 +13,7 @@ public class Elevator {
         Claw          .Initialize();
         Lift          .Initialize();
         Roller        .Initialize();
+        Slider        .Initialize();
     }
 
     public static void Periodic () {
@@ -19,6 +21,7 @@ public class Elevator {
         Claw          .Periodic();
         Lift          .Periodic();
         Roller        .Periodic();
+        Slider        .Periodic();
     }
 
     public static void Display () {
@@ -26,13 +29,15 @@ public class Elevator {
         Claw          .Display();
         Lift          .Display();
         Roller        .Display();
+        Slider        .Display();
     }
 
     public static void Reset () {
-        Arm           .Reset(); // SetHI
-        Claw          .Reset(); // Drop
-        Lift          .Reset(); // SetLO
-        Roller        .Reset(); // Stop
+        Arm           .Reset();
+        Claw          .Reset();
+        Lift          .Reset();
+        Roller        .Reset();
+        Slider        .Reset();
     }
 
 //

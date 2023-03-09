@@ -93,7 +93,7 @@ public class Swerve {
         SwerveModuleState[] ModuleStates = Kinematics.toSwerveModuleStates( Speeds );
 
         // NORMALIZE WHEEL RATIOS IF ANY SPEED IS ABOVE SPECIFIED MAXIMUM
-        // SwerveDriveKinematics.desaturateWheelSpeeds( ModuleStates, Settings.MAX_DRIVE_RATIO );
+        SwerveDriveKinematics.desaturateWheelSpeeds( ModuleStates, Settings.MAX_DRIVE_RATIO );
 
         // UPDATE ROBOT SPEEDS
         // RobotSpeed = Kinematics.toChassisSpeeds( ModuleStates );
@@ -103,6 +103,20 @@ public class Swerve {
         FR_module.Update( ModuleStates[1] );
         RL_module.Update( ModuleStates[2] );
         RR_module.Update( ModuleStates[3] );
+    }
+
+    public static void SetBrakeMode () {
+        FL_module.SetBrakeMode();
+        FR_module.SetBrakeMode();
+        RL_module.SetBrakeMode();
+        RR_module.SetBrakeMode();
+    }
+
+    public static void SetCoastMode () {
+        FL_module.SetCoastMode();
+        FR_module.SetCoastMode();
+        RL_module.SetCoastMode();
+        RR_module.SetCoastMode();
     }
 
 }

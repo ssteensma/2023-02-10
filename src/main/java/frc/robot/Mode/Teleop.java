@@ -17,7 +17,7 @@ public class Teleop {
         Tratio;
 
     public static void Initialize () {
-        DriveStick = new Joystick(       Settings.DriveStickID );
+        DriveStick = new Joystick      ( Settings.DriveStickID );
         ManipStick = new XboxController( Settings.ManipStickID );
     }
 
@@ -26,7 +26,7 @@ public class Teleop {
         Yratio = -DriveStick.getX();
         Tratio = -DriveStick.getTwist();
 
-        // UPDATE ALL COMPONENTS
+        // UPDATE MECHANISMS
         Driver   .Periodic();
         Elevator .Periodic();
     }
